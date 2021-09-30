@@ -184,8 +184,12 @@ function print_link($link_text, $rep, $pars = array(), $dir = '',
     if ($rep==209 && $link_text=='&Print This Order')
         return "<a target='_blank' href='$po_url'>$pars[0]</a>";
 
+    if ($rep==209 && $link_text=='Print')
+        return "<a target='_blank' href='$po_url'>$pars[0]</a>";
+
     return "<a target='_blank' href='$url'$id$class $pars[1]>$pars[0]</a>";
 }
+
 
 /*
 // Purpose: Function to parse a string into parameters

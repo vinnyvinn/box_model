@@ -25,6 +25,22 @@ $tno = explode("-", $to);
 $from = min($fno[0], $tno[0]);
 $to = max($fno[0], $tno[0]);
 
+function get_po($order_no)
+{
+    $sql = "SELECT po.*, supplier.supp_name, supplier.supp_account_no,supplier.tax_included,
+   		supplier.gst_no AS tax_id,
+   		supplier.curr_code, supplier.payment_terms, loc.location_name,
+   		supplier.address, supplier.contact, supplier.tax_group_id
+		FROM ".TB_PREF."purch_orders po,"
+        .TB_PREF."suppliers supplier,"
+        .TB_PREF."locations loc
+		WHERE po.supplier_id = supplier.supplier_id
+		AND loc.loc_code = into_stock_location
+		AND po.order_no = ".db_escape($order_no);
+    $result = db_query($sql, "The order cannot be retrieved");
+    return db_fetch($result);
+}
+
 function get_po_details($order_no)
 {
     $sql = "SELECT poline.*, units
@@ -118,7 +134,7 @@ for ($i = $from; $i <= $to; $i++)
         <header>
             <div class="row align-items-center">
                 <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
-                    <img id="logo" src="<?php echo isset($formData['coy_logo']) ? $logo : '/themes/default/images/erp.png' ;?>" title="WizERP" alt="WizERP" width="132px"/>
+                    <img id="logo" src="<?php echo isset($formData['coy_logo']) ? $logo : '/themes/default/images/erp.png' ;?>" title="WizERP" alt="WizERP" width="200"/>
                     <address>
                         <strong><?php
                           //var_dump($formData);
@@ -142,41 +158,18 @@ for ($i = $from; $i <= $to; $i++)
             <div class="row">
                 <div class="col-sm-6 text-sm-right order-sm-1"> <strong>Order To:</strong>
                     <address>
-                        <?php echo @$formData['br_name'] ? $formData['br_name'] : @$formData['DebtorName'];?><br />
+                        <?php echo @$formData['supp_name'];?><br />
                     </address>
                 </div>
                 <div class="col-sm-6 order-sm-0"> <strong>Delivered To:</strong>
                     <address>
                         <?php
-                        echo $formData['delivery_address'];?><br />
+                        echo $company['coy_name'];?><br />
                     </address>
                 </div>
 
             </div>
             <br>
-
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr class="table-info">
-                        <td class="text-center"><strong>Customer's Reference</strong></td>
-                        <td class="text-center"><strong>Sales Person</strong></td>
-                        <td class="text-center"><strong>Your VAT no.</strong></td>
-                        <td class="text-center"><strong>Supplier's Reference</strong></td>
-                        <td class="text-center"><strong>Order Date</strong></td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="text-center"><?php echo @$formData["supp_account_no"];?></td>
-                        <td class="text-center"><?php echo $formData['contact'];?></td>
-                        <td class="text-center"><?php echo $formData['tax_id'];?></td>
-                        <td class="text-center"><?php echo $formData['requisition_no'];?></td>
-                        <td class="text-center"><?php echo date("d/m/Y", strtotime($formData['document_date']));?></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
 
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -198,9 +191,7 @@ for ($i = $from; $i <= $to; $i++)
                     </tbody>
                 </table>
             </div>
-            <p>
-                <b>PLEASE RECEIVE THE FOLLOWING GOODS IN GOOD ORDER AND CONDITION</b>
-            </p>
+
 
             <div class="card">
                 <div class="card-body p-0">
@@ -256,12 +247,7 @@ for ($i = $from; $i <= $to; $i++)
                             <tr class="tr-spacer"/>
                             <tr>
                                 <td rowspan="3">
-                               <span>
-                                Any exceptions, errors or change of address should be promptly
-                                advised to the company.Under no circumstances will the above goods be
-                                returned. Above goods received and accepted in good order and condition.
-                                All goods remain the property of the seller until payment is received in full.
-                            </span>
+
                                 </td>
                                 <?php  $DisplaySubTot = number_format2($SubTotal,$dec);?>
                                 <td colspan="3" class="text-right" style="width:10px !important;"><strong>Total Excl Amount</strong></td>
@@ -279,7 +265,6 @@ for ($i = $from; $i <= $to; $i++)
                                     continue;
                                 $DisplayTax = number_format2($tax_item['Value'], $dec);
                                 $tax_type_name = $tax_item['tax_type_name'];
-
                                 ?>
                                 <tr>
                                     <td colspan="3" class="text-right"><strong>TAX <?php echo $tax_type_name;?></strong></td>
@@ -302,17 +287,7 @@ for ($i = $from; $i <= $to; $i++)
                     </div>
                 </div>
             </div>
-
         </main>
-        <!-- Footer -->
-        <footer class="text-center">
-            <br>
-            <p class="text-1"><strong>NOTE :</strong> Cheques are payable to <b>OCEAN FOODS LIMITED</b>.
-                <br>
-                <span class="text-1">Cash payable to: <b>Mpesa Paybill Number 400 47 47</b> -> Account No. Invoice No. -> Amount as per Invoice</span>
-            </p>
-            <div class="btn-group btn-group-sm d-print-none"> <a href="javascript:window.print()" class="btn btn-light border text-black-50 shadow-none"><i class="fa fa-print"></i> Print</a> <a href="" class="btn btn-light border text-black-50 shadow-none"><i class="fa fa-download"></i> Download</a> </div>
-        </footer>
     </div>
     </body>
    </html>

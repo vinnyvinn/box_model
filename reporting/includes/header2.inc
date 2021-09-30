@@ -72,6 +72,7 @@
 
 		// Company Logo
 		$logo = company_path() . "/images/" . $this->company['coy_logo'];
+
 		if ($this->company['coy_logo'] != '' && file_exists($logo))
 		{
 			$this->NewLine();

@@ -86,7 +86,7 @@ include_once($path_to_root . "/sales/includes/sales_db.inc");
         <div class="row">
             <div class="col-sm-6 text-sm-right order-sm-1"> <strong>Charge To:</strong>
                 <address>
-                    <?php echo @$formData['br_name'] ? $formData['br_name'] : @$formData['DebtorName'];?><br />
+                    <?php echo $formData['supp_name'];?><br />
                 </address>
             </div>
             <div class="col-sm-6 order-sm-0"> <strong>Delivered To:</strong>
@@ -101,9 +101,6 @@ include_once($path_to_root . "/sales/includes/sales_db.inc");
 
         </div>
         <br>
-        <p>
-        <b>PLEASE RECEIVE THE FOLLOWING GOODS IN GOOD ORDER AND CONDITION</b>
-        </p>
 
         <div class="card">
             <div class="card-body p-0">
@@ -157,12 +154,7 @@ include_once($path_to_root . "/sales/includes/sales_db.inc");
                         <tr class="tr-spacer"/>
                         <tr>
                          <td colspan="4" rowspan="4">
-                               <span>
-                                Any exceptions, errors or change of address should be promptly
-                                advised to the company.Under no circumstances will the above goods be
-                                returned. Above goods received and accepted in good order and condition.
-                                All goods remain the property of the seller until payment is received in full.
-                            </span>
+
                             </td>
                         </tr>
                         <?php
@@ -197,14 +189,7 @@ include_once($path_to_root . "/sales/includes/sales_db.inc");
 
     </main>
     <!-- Footer -->
-    <footer class="text-center">
-        <br>
-        <p class="text-1"><strong>NOTE :</strong> Cheques are payable to <b>OCEAN FOODS LIMITED</b>.
-            <br>
-            <span class="text-1">Cash payable to: <b>Mpesa Paybill Number 400 47 47</b> -> Account No. Invoice No. -> Amount as per Invoice</span>
-        </p>
-        <div class="btn-group btn-group-sm d-print-none"> <a href="javascript:window.print()" class="btn btn-light border text-black-50 shadow-none"><i class="fa fa-print"></i> Print</a> <a href="" class="btn btn-light border text-black-50 shadow-none"><i class="fa fa-download"></i> Download</a> </div>
-    </footer>
+
 </div>
 </body>
 </html>

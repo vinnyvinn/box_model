@@ -92,6 +92,35 @@ function get_stock_requests($stock_id, $StockLocation,	$BeforeDate, $AfterDate)
 
       return $sql;
 }
+function get_stock_requests_($stock_id, $StockLocation,	$BeforeDate, $AfterDate)
+{
+    $before_date = date2sql($BeforeDate);
+    $after_date = date2sql($AfterDate);
+
+    // PO Delivery and Customer Credit Notes references should be saved in stock moves reference in 2.5
+    $sql = "SELECT move.type,IF(move.type=".ST_SUPPRECEIVE.", grn.reference, IF(move.type=".ST_CUSTCREDIT.", cust_trans.reference, move.reference)) reference,move.loc_code,move.tran_date,move.qty_item_requested as qty, IF(ISNULL(supplier.supplier_id), debtor.name, supplier.supp_name) name,move.trans_no,move.trans_id";
+
+    $sql.=    " FROM ".TB_PREF."stock_moves move
+				LEFT JOIN ".TB_PREF."supp_trans credit ON credit.trans_no=move.trans_no AND credit.type=move.type
+				LEFT JOIN ".TB_PREF."grn_batch grn ON grn.id=move.trans_no AND move.type=".ST_SUPPRECEIVE."
+				LEFT JOIN ".TB_PREF."suppliers supplier ON IFNULL(grn.supplier_id, credit.supplier_id)=supplier.supplier_id
+				LEFT JOIN ".TB_PREF."debtor_trans cust_trans ON cust_trans.trans_no=move.trans_no AND cust_trans.type=move.type
+				LEFT JOIN ".TB_PREF."debtors_master debtor ON cust_trans.debtor_no=debtor.debtor_no
+		WHERE";
+
+    if ($StockLocation) {
+        $sql.= " move.loc_code=".db_escape($StockLocation)." AND";
+    }
+
+    if ($stock_id != ALL_TEXT && !empty($stock_id))
+        $sql .= " move.stock_id=".db_escape($stock_id)." AND";
+
+
+    $sql.= " move.type = '" . ST_INVREQUEST . "'		
+	    ORDER BY move.tran_date, move.trans_id";
+
+    return db_query($sql,'Request could not be retrieved');
+}
 
 function calculate_reorder_level($location, $line, &$st_ids, &$st_names, &$st_num, &$st_reorder)
 {

@@ -100,6 +100,13 @@ function display_db_pager(&$pager) {
 	    foreach ($pager->columns as $k=>$col) {
 		   $coltype = $col['type'];
 		   $cell = isset($col['name']) ? $row[$col['name']] : '';
+            if ($col['name'] =='loc_code'){
+                $cell = get_location_name($row[$col['name']]);
+            }
+            if ($col['name'] =='qty'){
+                $cell = abs($row[$col['name']]);
+            }
+
             if (isset($col['fun'])) { // use data input function if defined
                 $fun = $col['fun'];
                 if (method_exists($pager, $fun)) {
@@ -108,6 +115,7 @@ function display_db_pager(&$pager) {
                     $cell = $fun($row, $cell);
                 } else
                     $cell = '';
+                error_log($fun);
             }
 
 		   switch($coltype) { // format column
@@ -148,7 +156,6 @@ function display_db_pager(&$pager) {
 
                       if ($row['trans_type'] == ST_SALESQUOTE):
                           if (isset($row['qty_sent'])){
-                              error_log('walla');
                               label_cell($row['qty_sent'] > 0 ? 'Processed' : 'Unprocessed', "align='" . $col['align'] . "'");
                           }else {
                               label_cell($cell, "align='" . $col['align'] . "'");

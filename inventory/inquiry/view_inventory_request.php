@@ -123,9 +123,12 @@ function receive_link($row)
 $sql = get_stock_requests($_POST['stock_id'], $_POST['StockLocation'],
     $_POST['BeforeDate'], $_POST['AfterDate']);
 
-//$result = db_query($sql,"No item requests were returned");
+
+$result = db_query($sql,"No item requests were returned");
+
 
 /*show a table of the inventory requests by the sql */
+$return = false;
 $cols = array(
     _("#") => array('fun'=>'trans_view', 'ord'=>''),
     _("Reference") => array('align'=>'center'),
@@ -134,8 +137,8 @@ $cols = array(
     _("Quantity") => 'amount',
     array('insert'=>true, 'fun'=>'edit_link'),
     array('insert'=>true, 'fun'=>'receive_link'),
-
 );
+
 
 $table =& new_db_pager('stock_moves_tbl', $sql, $cols);
 

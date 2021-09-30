@@ -68,9 +68,9 @@ function add_stock_request($items, $location, $date_, $reference, $memo_)
     $args = func_get_args();
     $args = (object)array_combine(array('items', 'location', 'date_', 'reference', 'memo_'), $args);
     $args->trans_no = 0;
-    hook_db_prewrite($args, ST_INVADJUST);
+    hook_db_prewrite($args, ST_INVREQUEST);
 
-    $req_id = get_next_trans_no(ST_INVADJUST);
+    $req_id = get_next_trans_no_req(ST_INVREQUEST);
 
     foreach ($items as $line_item)
     {

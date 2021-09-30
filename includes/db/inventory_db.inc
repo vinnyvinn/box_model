@@ -332,7 +332,7 @@ function get_stock_gl_code($stock_id)
 	$sql = "SELECT mb_flag, inventory_account, cogs_account,
 		adjustment_account, sales_account, wip_account, dimension_id, dimension2_id FROM
 		".TB_PREF."stock_master WHERE stock_id = ".db_escape($stock_id);
-
+    
 	$get = db_query($sql,"retreive stock gl code");
 	return db_fetch($get);
 }
@@ -555,7 +555,7 @@ function get_location_name($loc_code)
 function get_item_price_by_stock_id($stock_id)
 {
    $sql = "SELECT price FROM ".TB_PREF."purch_data
-		WHERE stock_id=".db_escape('Rev');
+		WHERE stock_id=".db_escape($stock_id);
     $result = db_query($sql, "could not retreive the item price for $stock_id");
 
     if (db_num_rows($result) > 0)
@@ -563,7 +563,7 @@ function get_item_price_by_stock_id($stock_id)
         $row = db_fetch_row($result);
         return $row[0];
     }
-    
+
     display_db_error("could not retreive the item price for $stock_id", $sql, true);
 }
 function get_mb_flag($stock_id)

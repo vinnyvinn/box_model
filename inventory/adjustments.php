@@ -155,7 +155,9 @@ if (isset($_POST['Process']) && can_process()){
   else
    	meta_forward($_SERVER['PHP_SELF'], "AddedID=$trans_no");
 
-} /*end of process credit note */
+}
+
+/*end of process credit note */
 
 //-----------------------------------------------------------------------------------------------
 

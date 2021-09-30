@@ -41,7 +41,7 @@ while ($adjustment = db_fetch($adjustment_items))
 		start_row();
 		label_cells(_("At Location"), $adjustment['location_name'], "class='tableheader2'");
     	label_cells(_("Reference"), $adjustment['reference'], "class='tableheader2'", "colspan=6");
-		label_cells(_("Date"), sql2date($adjustment['tran_date']), "class='tableheader2'");
+		label_cells(_("Date"), date('d/m/Y',strtotime($adjustment['tran_date'])), "class='tableheader2'");
 		end_row();
 		comments_display_row(ST_INVREQUEST, $trans_no);
 
@@ -57,10 +57,9 @@ while ($adjustment = db_fetch($adjustment_items))
 	}
 
     alt_table_row_color($k);
-
     label_cell($adjustment['stock_id']);
     label_cell($adjustment['description']);
-    qty_cell($adjustment['qty'], false, get_qty_dec($adjustment['stock_id']));
+    qty_cell(abs($adjustment['qty_item_requested']), false, get_qty_dec($adjustment['stock_id']));
     label_cell($adjustment['units']);
     amount_decimal_cell($adjustment['standard_cost']);
     end_row();

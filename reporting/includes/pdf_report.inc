@@ -413,6 +413,7 @@ class FrontReport extends Cpdf
 				}
 			}
 		}
+
 		$this->formData['doctype'] = $doctype;
 		$this->formData['document_amount'] = @$this->formData['ov_amount']+@$this->formData['ov_freight']+@$this->formData['ov_gst'];
 		if (count($contacts)) {

@@ -159,7 +159,6 @@ function get_counterparty_name($trans_type, $trans_no, $full=true)
 function get_next_trans_no ($trans_type){
 
 	$st = get_systype_db_info($trans_type);
-
 	if (!($st && $st[0] && $st[2])) {
 		// this is in fact internal error condition.
 		display_error('Internal error: invalid type passed to get_next_trans_no()');
@@ -173,6 +172,26 @@ function get_next_trans_no ($trans_type){
 	$sql2 = "SELECT MAX(`id`) as last_no FROM ".TB_PREF."voided WHERE `type`=".db_escape($trans_type);
 
 	$sql = "SELECT max(last_no) last_no FROM ($sql1 UNION $sql2) a";
+    $result = db_query($sql,"The next transaction number for $trans_type could not be retrieved");
+    $myrow = db_fetch_row($result);
+
+    return $myrow[0] + 1;
+}
+
+function get_next_trans_no_req($trans_type){
+
+    $st = get_systype_db_info($trans_type);
+    if (!($st && $st[0] && $st[2])) {
+        // this is in fact internal error condition.
+        display_error('Internal error: invalid type passed to get_next_trans_no()');
+        return 0;
+    }
+    $sql1 = "SELECT MAX(`$st[2]`) as last_no FROM $st[0]";
+    if ($st[1] != null)
+        $sql1 .= " WHERE `$st[1]`=".db_escape($trans_type);
+
+
+    $sql = "SELECT max(last_no) last_no FROM ($sql1) a";
     $result = db_query($sql,"The next transaction number for $trans_type could not be retrieved");
     $myrow = db_fetch_row($result);
 

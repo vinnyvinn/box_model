@@ -134,41 +134,18 @@ for ($i = $from; $i <= $to; $i++)
         <div class="row">
             <div class="col-sm-6 text-sm-right order-sm-1"> <strong>Charge To:</strong>
                 <address>
-                    <?php echo @$formData['br_name'] ? $formData['br_name'] : @$formData['DebtorName'];?><br />
+                    <?php echo @$formData['supp_name'];?><br />
                 </address>
             </div>
             <div class="col-sm-6 order-sm-0"> <strong>Delivered To:</strong>
                 <address>
                <?php
-               echo $formData['delivery_address'];?><br />
+               echo $company['coy_name'];?><br />
                 </address>
             </div>
 
         </div>
         <br>
-
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                <tr class="table-info">
-                    <td class="text-center"><strong>Customer's Reference</strong></td>
-                    <td class="text-center"><strong>Sales Person</strong></td>
-                    <td class="text-center"><strong>Your VAT no.</strong></td>
-                    <td class="text-center"><strong>Our Order No</strong></td>
-                    <td class="text-center"><strong>Delivery Date</strong></td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="text-center"><?php echo @$formData["customer_ref"];?></td>
-                    <td class="text-center"><?php echo get_salesman_name($formData['salesman']);?></td>
-                    <td class="text-center"><?php echo $formData['tax_id'];?></td>
-                    <td class="text-center"><?php echo $formData['order_no'];?></td>
-                    <td class="text-center"><?php echo  date("d/m/Y", strtotime($formData['delivery_date']));?></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
 
         <div class="table-responsive">
             <table class="table table-bordered">
@@ -190,9 +167,7 @@ for ($i = $from; $i <= $to; $i++)
                 </tbody>
             </table>
         </div>
-        <p>
-        <b>PLEASE RECEIVE THE FOLLOWING GOODS IN GOOD ORDER AND CONDITION</b>
-        </p>
+
 
         <div class="card">
             <div class="card-body p-0">
@@ -240,12 +215,7 @@ for ($i = $from; $i <= $to; $i++)
                         <tr class="tr-spacer"/>
                         <tr>
                          <td rowspan="3">
-                               <span>
-                                Any exceptions, errors or change of address should be promptly
-                                advised to the company.Under no circumstances will the above goods be
-                                returned. Above goods received and accepted in good order and condition.
-                                All goods remain the property of the seller until payment is received in full.
-                            </span>
+
                             </td>
                             <?php $DisplaySubTot = number_format2($SubTotal,$dec);?>
                             <td colspan="3" class="text-right" style="width:10px !important;"><strong>Total Excl Amount</strong></td>
@@ -290,14 +260,6 @@ for ($i = $from; $i <= $to; $i++)
 
     </main>
     <!-- Footer -->
-    <footer class="text-center">
-        <br>
-        <p class="text-1"><strong>NOTE :</strong> Cheques are payable to <b>OCEAN FOODS LIMITED</b>.
-            <br>
-            <span class="text-1">Cash payable to: <b>Mpesa Paybill Number 400 47 47</b> -> Account No. Invoice No. -> Amount as per Invoice</span>
-        </p>
-        <div class="btn-group btn-group-sm d-print-none"> <a href="javascript:window.print()" class="btn btn-light border text-black-50 shadow-none"><i class="fa fa-print"></i> Print</a> <a href="" class="btn btn-light border text-black-50 shadow-none"><i class="fa fa-download"></i> Download</a> </div>
-    </footer>
 </div>
 </body>
 </html>

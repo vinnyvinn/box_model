@@ -264,7 +264,7 @@ if (isset($_SESSION['REQUEST'])):
 	$items_title = _("Request Items");
 	$button_title = _("Process Request");
 
-display_order_header($_SESSION['req_items']);
+ display_order_header($_SESSION['req_items']);
 
 start_outer_table(TABLESTYLE, "width='70%'", 10);
 
