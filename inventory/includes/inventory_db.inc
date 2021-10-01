@@ -98,7 +98,7 @@ function get_stock_requests_($stock_id, $StockLocation,	$BeforeDate, $AfterDate)
     $after_date = date2sql($AfterDate);
 
     // PO Delivery and Customer Credit Notes references should be saved in stock moves reference in 2.5
-    $sql = "SELECT move.type,IF(move.type=".ST_SUPPRECEIVE.", grn.reference, IF(move.type=".ST_CUSTCREDIT.", cust_trans.reference, move.reference)) reference,move.loc_code,move.tran_date,move.qty_item_requested as qty, IF(ISNULL(supplier.supplier_id), debtor.name, supplier.supp_name) name,move.trans_no,move.trans_id";
+    $sql = "SELECT move.type,IF(move.type=".ST_SUPPRECEIVE.", grn.reference, IF(move.type=".ST_CUSTCREDIT.", cust_trans.reference, move.reference)) reference,move.loc_code,move.tran_date,move.stock_id,move.qty_item_requested as qty, IF(ISNULL(supplier.supplier_id), debtor.name, supplier.supp_name) name,move.trans_no,move.trans_id";
 
     $sql.=    " FROM ".TB_PREF."stock_moves move
 				LEFT JOIN ".TB_PREF."supp_trans credit ON credit.trans_no=move.trans_no AND credit.type=move.type

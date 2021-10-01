@@ -52,17 +52,7 @@ start_table(TABLESTYLE_NOBORDER);
 start_row();
 if (!$page_nested)
 {
-	if (get_post('fixed_asset') == 1) {
-		stock_items_list_cells(_("Item:"), 'stock_id', $_POST['stock_id'],
-			false, false, check_value('show_inactive'), false, array('fixed_asset' => true));
-		check_cells(_("Show inactive:"), 'show_inactive', null, true);
-
-		if (get_post('_show_inactive_update')) {
-			$Ajax->activate('stock_id');
-			set_focus('stock_id');
-		}
-	} else
-		stock_costable_items_list_cells(_("Item:"), 'stock_id', $_POST['stock_id']);
+ stock_costable_items_list_cells(_("Item:"), 'stock_id', $_POST['stock_id']);
 }
 
 end_row();
@@ -100,18 +90,6 @@ if ($display_location)
 array_push($th, _("Date"), _("Detail"), _("Quantity In"), _("Quantity Out"), _("Quantity On Hand"));
 
 table_header($th);
-
-$before_qty = get_qoh_on_date($_POST['stock_id'], $_POST['StockLocation'], add_days($_POST['AfterDate'], -1));
-
-$after_qty = $before_qty;
-
-start_row("class='inquirybg'");
-$header_span = $display_location ? 6 : 5;
-label_cell("<b>"._("Quantity on hand before") . " " . $_POST['AfterDate']."</b>", "align=center colspan=$header_span");
-label_cell("&nbsp;", "colspan=2");
-$dec = get_qty_dec($_POST['stock_id']);
-qty_cell($before_qty, false, $dec);
-end_row();
 
 $j = 1;
 $k = 0; //row colour counter
@@ -157,10 +135,9 @@ while ($myrow = db_fetch($result))
 	$gl_posting = "";
 
 	label_cell($myrow['name']);
-
 	label_cell((($myrow["qty"] >= 0) ? $quantity_formatted : ""), "nowrap align=right");
 	label_cell((($myrow["qty"] < 0) ? $quantity_formatted : ""), "nowrap align=right");
-	qty_cell($after_qty, false, $dec);
+	qty_cell( get_qoh_on_date($myrow['stock_id'],$myrow['loc_code']), false, $dec);
 	end_row();
 
 	$j++;
@@ -170,13 +147,6 @@ while ($myrow = db_fetch($result))
 		table_header($th);
 	}
 }
-
-start_row("class='inquirybg'");
-label_cell("<b>"._("Quantity on hand after") . " " . $_POST['BeforeDate']."</b>", "align=center colspan=$header_span");
-qty_cell($total_in, false, $dec);
-qty_cell($total_out, false, $dec);
-qty_cell($after_qty, false, $dec);
-end_row();
 
 end_table(1);
 div_end();
