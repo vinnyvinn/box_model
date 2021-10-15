@@ -335,7 +335,6 @@ for ($i = $from; $i <= $to; $i++)
             window.close();
         },2000)
     </script>
-
     <style>
         .tr-spacer
         {
