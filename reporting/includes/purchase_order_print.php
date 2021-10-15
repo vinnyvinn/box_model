@@ -321,7 +321,7 @@ for ($i = $from; $i <= $to; $i++)
 
                     </table>
                     <div style="margin-top: 3%">
-                        <p>Company Registration No: CPR2014/144733. Registered Office P.O BOX 23557-00400, Nairobi East Tom Mboya, Nairobi Kenya</p>
+                        <p style="font-size: 13px">Company Registration No: CPR2014/144733. Registered Office P.O BOX 23557-00400, Nairobi East Tom Mboya, Nairobi Kenya</p>
                     </div>
                 </div>
             </div>
