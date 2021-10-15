@@ -331,10 +331,10 @@ for ($i = $from; $i <= $to; $i++)
    </html>
 
     <script>
-        // window.print();
-        // setTimeout(() =>{
-        //     window.close();
-        // },2000)
+        window.print();
+        setTimeout(() =>{
+            window.close();
+        },2000)
     </script>
 
     <style>
