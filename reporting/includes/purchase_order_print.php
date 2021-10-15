@@ -329,7 +329,6 @@ for ($i = $from; $i <= $to; $i++)
     </div>
     </body>
    </html>
-
     <script>
         window.print();
         setTimeout(() =>{
