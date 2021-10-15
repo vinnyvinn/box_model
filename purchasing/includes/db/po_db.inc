@@ -62,7 +62,7 @@ function delete_po($po)
 
 //----------------------------------------------------------------------------------------
 
-function add_po(&$po_obj)
+function add_po(&$po_obj,$usd_rate='')
 {
 	global $Refs;
 
@@ -71,7 +71,7 @@ function add_po(&$po_obj)
 
      /*Insert to purchase order header record */
      $sql = "INSERT INTO ".TB_PREF."purch_orders (supplier_id, Comments, ord_date, reference, 
-     	requisition_no, into_stock_location, delivery_address, total, tax_included, prep_amount) VALUES(";
+     	requisition_no, into_stock_location, delivery_address, total, usd_rate,tax_included, prep_amount) VALUES(";
      $sql .= db_escape($po_obj->supplier_id) . "," .
          db_escape($po_obj->Comments) . ",'" .
          date2sql($po_obj->orig_order_date) . "', " .
@@ -80,6 +80,7 @@ function add_po(&$po_obj)
          db_escape($po_obj->Location) . ", " .
          db_escape($po_obj->delivery_address) . ", " .
          db_escape($po_obj->get_trans_total()). ", " .
+         db_escape($usd_rate). ", " .
          db_escape($po_obj->tax_included). ", " .
          db_escape($po_obj->prep_amount). ")";
 
@@ -112,8 +113,9 @@ function add_po(&$po_obj)
 
 //----------------------------------------------------------------------------------------
 
-function update_po(&$po_obj)
+function update_po(&$po_obj,$usd_rate='')
 {
+
 	begin_transaction();
 	hook_db_prewrite($po_obj, ST_PURCHORDER);
 
@@ -125,6 +127,7 @@ function update_po(&$po_obj)
 		delivery_address=" . db_escape($po_obj->delivery_address).",
 		total=". db_escape($po_obj->get_trans_total()).",
 		prep_amount=". db_escape($po_obj->prep_amount).",
+		usd_rate=". db_escape($usd_rate).",
 		tax_included=". db_escape($po_obj->tax_included);
     $sql .= " WHERE order_no = " . $po_obj->order_no;
 	db_query($sql, "The purchase order could not be updated");
@@ -203,6 +206,7 @@ function read_po_header($order_no, &$order)
       	$order->delivery_address = $myrow["delivery_address"];
       	$order->alloc = $myrow["alloc"];
       	$order->prep_amount = $myrow["prep_amount"];
+      	$order->usd_rate = $myrow["usd_rate"];
       	$order->prepayments = get_payments_for($order_no, ST_PURCHORDER, $myrow["supplier_id"]);
       	return true;
 	}

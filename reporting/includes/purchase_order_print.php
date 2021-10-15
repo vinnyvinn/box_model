@@ -27,7 +27,7 @@ $to = max($fno[0], $tno[0]);
 
 function get_po($order_no)
 {
-    $sql = "SELECT po.*, supplier.supp_name, supplier.supp_account_no,supplier.tax_included,
+    $sql = "SELECT po.*, supplier.supp_name,supp_address, supplier.supp_account_no,supplier.tax_included,
    		supplier.gst_no AS tax_id,
    		supplier.curr_code, supplier.payment_terms, loc.location_name,
    		supplier.address, supplier.contact, supplier.tax_group_id
@@ -74,7 +74,7 @@ for ($i = $from; $i <= $to; $i++)
     $datnames = array(
         'myrow' => array('ord_date', 'date_', 'tran_date',
             'order_no','reference', 'id', 'trans_no', 'name', 'location_name',
-            'delivery_address', 'supp_name', 'address',
+            'delivery_address', 'supp_name','supp_address', 'address',
             'DebtorName', 'supp_account_no', 'wo_ref', 'debtor_ref','type', 'trans_no',
             'StockItemName', 'tax_id', 'order_', 'delivery_date', 'units_issued',
             'due_date', 'required_by', 'payment_terms', 'curr_code',
@@ -104,9 +104,13 @@ for ($i = $from; $i <= $to; $i++)
         $formData['rep_lang'] = $contacts[0]['lang'];
     }
     //end form data
+
     $result = get_po_details($i);
+
+    $res = db_fetch(get_po_details($i));
     $SubTotal = 0;
     $items = $prices = array();
+
 
     $logo = company_path() . "/images/" . $formData['coy_logo'];
     ?>
@@ -131,83 +135,81 @@ for ($i = $from; $i <= $to; $i++)
     <!-- Container -->
     <div class="container-fluid invoice-container A4">
         <!-- Header -->
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4 text-sm-right">
+                <img id="logo" src="<?php echo isset($formData['coy_logo']) ? $logo : '/themes/default/images/erp.png' ;?>" title="WizERP" alt="WizERP" width="200"/>
+            </div>
+        </div>
         <header>
             <div class="row align-items-center">
-                <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
-                    <img id="logo" src="<?php echo isset($formData['coy_logo']) ? $logo : '/themes/default/images/erp.png' ;?>" title="WizERP" alt="WizERP" width="200"/>
+                <div class="col-sm-6 text-center text-sm-left mb-3 mb-sm-0">
+                    <h3 class="mb-1" style="font-weight: 900">PURCHASE ORDER</h3>
+
                     <address>
-                        <strong><?php
-                          //var_dump($formData);
-                            echo $company['coy_name'];?></strong><br/>
+                        <span style="text-transform: uppercase;font-size: 16px;"><?php
+                           // echo '<pre>';
+                        //  var_dump($formData);
+                          echo $formData['supp_name'];
+//                            echo $company['coy_name'];
+                            ?>
+                        </span><br/>
+                        <span style="text-transform:uppercase; font-size: 16px;">
+                            <?php
+                            echo $formData['supp_address'];?><br>
+                        </span>
 
                         <?php echo $company['postal_address'];?><br />
-                        PHONE: <?php echo $company['phone'];?><br />
-                        EMAIL: <?php echo $company['email'];?><br />
                     </address>
                 </div>
-                <div class="col-sm-5 text-center text-sm-right">
-                    <h4 class="mb-0">PURCHASE ORDER</h4>
-                    <p class="mb-0">Purchase Order No. <?php echo $formData['reference'];?></p>
-                    <p class="mt-5"><b>Date: </b> <?php echo date("d/m/Y", strtotime($formData['ord_date']));?></p>
+                <div class="col-sm-3">
+                    <b class="mb-0" style="font-size: 14px">Purchase Order Date</b>
+                    <span style="text-align: left"><?php echo date("d/m/Y", strtotime($formData['ord_date']));?></span><br>
+
+                    <div class="mt-2">
+                     <b class="mb-2" style="font-size: 14px">Delivery Date</b>
+                    </div>
+                    <p class="mb-0"><?php echo date('d/m/Y',strtotime($res['delivery_date']));?></p>
+                    <div class="mt-2">
+                    <b class="mb-2" style="font-size: 14px">
+                        Purchase Order Number
+                    </b>
+                    </div>
+                    <p class="mb-0">
+                        <?php echo $formData['reference'];?>
+                    </p>
+
+                    <div class="mt-2">
+                    <b class="mb-2" style="font-size: 14px"><?php echo $company['coy_name'];?></b>
+                    </div>
+                    <p class="mb-0">PO614729541</p>
+                </div>
+                <div class="col-sm-3 text-center text-sm-right mt-0">
+                    <b class="mb-2" style="font-size: 12px"><?php echo $company['coy_name'];?></b>
+                    <p class="mb-0"><?php echo $company['postal_address'];?></p>
                 </div>
             </div>
             <hr>
         </header>
         <!-- Main Content -->
         <main>
-            <div class="row">
-                <div class="col-sm-6 text-sm-right order-sm-1"> <strong>Order To:</strong>
-                    <address>
-                        <?php echo @$formData['supp_name'];?><br />
-                    </address>
-                </div>
-                <div class="col-sm-6 order-sm-0"> <strong>Delivered To:</strong>
-                    <address>
-                        <?php
-                        echo $company['coy_name'];?><br />
-                    </address>
-                </div>
-
-            </div>
-            <br>
-
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                    <tr class="table-info">
-                        <td class="text-center"><strong>Customer's Balance</strong></td>
-                        <td class="text-center"><strong>Payment Terms</strong></td>
-                        <td class="text-center"><strong>Credit Limit</strong></td>
-                        <td class="text-center"><strong>Last Unpaid Invoice Days</strong></td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-
             <div class="card">
                 <div class="card-body p-0">
                     <div class="table-bordered">
-                        <table class="table mb-0">
+                        <table class="table mb-0" style="width: 100%;">
                             <thead>
                             <tr class="table-info">
-                                <td class="border-top-0"><strong>Item Description</strong></td>
-                                <td class="text-center border-top-0" style="width: 20%"><strong>Delivery Date</strong></td>
-                                <td class="border-top-0" style="width: 15%;text-align: center"><strong>Qty Unit</strong></td>
-                                <td class="text-right border-top-0"><strong>Price</strong></td>
-                                <td class="text-right border-top-0" style="width: 15%;"><strong>Total Incl</strong></td>
+                                <td class="border-top-0"><strong>Description</strong></td>
+                                <td class="border-top-0"><strong>Quantity</strong></td>
+                                <td class="border-top-0"><strong>Exchange Rate</strong></td>
+                                <td class="border-top-0"><strong>Tax</strong></td>
+                                <td class="text-right border-top-0"><strong>Unit Price</strong></td>
+                                <td class="text-right border-top-0"><strong>Amount KES</strong></td>
                             </tr>
                             </thead>
                             <tbody>
                             <?php
+                            $subtotal = 0;
                             while ($myrow2=db_fetch($result))
                             {
                                 $data = get_purchase_data($myrow['supplier_id'], $myrow2['item_code']);
@@ -231,26 +233,32 @@ for ($i = $from; $i <= $to; $i++)
                                 $DisplayPrice = price_decimal_format($myrow2["unit_price"],$dec2);
                                 $DisplayQty = number_format2($myrow2["quantity_ordered"],get_qty_dec($myrow2['item_code']));
                                 $DisplayNet = number_format2($Net,$dec);
+
+                                $DisplayTax = 0;
+                                $tax_items =  $tax_items = get_tax_for_items($items, $prices, 0,
+                                    $myrow['tax_group_id'], $myrow['tax_included'],  null, TCA_LINES);
+                               //  $tax_items[1]['tax_type_name']; --> 16 %
+                                $subtotal +=($DisplayNet * $myrow['usd_rate']);
                                 ?>
                                 <tr>
                                     <td><span class="text-3"><?php echo $myrow2['description'];?></td>
-                                    <td class="text-center"><?php echo $myrow2['delivery_date'];?></td>
                                     <td class="text-center"><?php echo $DisplayQty.' '.$myrow2['units'];?></td>
+                                    <td class="text-center"><?php echo $myrow['usd_rate'];?></td>
+                                    <td class="text-center"><?php echo '16%';?></td>
                                     <td class="text-center"><?php echo $DisplayPrice?></td>
-                                    <td class="text-right"><?php echo $DisplayNet?></td>
+                                    <td class="text-right"><?php echo number_format2($DisplayNet * $myrow['usd_rate'],$dec);?></td>
                                 </tr>
                             <?php  }?>
                             </tbody>
                             <tfoot class="card-footer">
-                            <tr class="tr-spacer"/>
-                            <tr class="tr-spacer"/>
-                            <tr class="tr-spacer"/>
                             <tr>
                                 <td rowspan="3">
 
                                 </td>
-                                <?php  $DisplaySubTot = number_format2($SubTotal,$dec);?>
-                                <td colspan="3" class="text-right" style="width:10px !important;"><strong>Total Excl Amount</strong></td>
+                                <?php
+
+                                $DisplaySubTot = number_format2($subtotal,$dec);?>
+                                <td colspan="4" class="text-right" style="width:10px !important;"><strong>Subtotal</strong></td>
                                 <td class="text-right"><?php echo $DisplaySubTot;?></td>
 
                             </tr>
@@ -258,7 +266,7 @@ for ($i = $from; $i <= $to; $i++)
                             $DisplayTax = 0;
                             $tax_items =  $tax_items = get_tax_for_items($items, $prices, 0,
                                 $myrow['tax_group_id'], $myrow['tax_included'],  null, TCA_LINES);
-
+                          //   var_dump($tax_items[1]['tax_type_name']);
                             foreach($tax_items as $tax_item)
                             {
                                 if ($tax_item['Value'] == 0)
@@ -272,18 +280,48 @@ for ($i = $from; $i <= $to; $i++)
                                 </tr>
                                 <?php
                             }
-                            $DisplayTotal = $myrow["freight_cost"] + $SubTotal;
+
+                            $DisplayTaxAmount = $subtotal * 0.16;
                             ?>
 
                             <tr>
-                                <td colspan="3" class="text-right"><strong>Total Incl Amount</strong></td>
-                                <td class="text-right"><?php echo number_format2(($DisplayTotal + $DisplayTax),$dec);?></td>
+                                <td colspan="4" class="text-right"><strong>TOTAL PURCHASES TAX 16%</strong></td>
+                                <td class="text-right" style="border-bottom: none"><?php echo number_format2($DisplayTaxAmount,$dec);?></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-right"><strong>TOTAL KES</strong></td>
+                                <td class="text-right"><?php
+                                    echo number_format2(($subtotal + $DisplayTaxAmount),$dec);?></td>
                             </tr>
 
                             </tfoot>
                         </table>
 
+                    </div>
 
+                    <h3 style="margin-top: 5rem;font-weight: 600">DELIVERY DETAILS</h3>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <b style="font-size: 16px">Delivery Address</b>
+                            <table>
+                                <tr>
+                                 <td><?php echo $formData['delivery_address'];?></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-3">
+                            <b style="font-size: 16px">Attention</b>
+                        </div>
+                        <div class="col-md-3">
+                         <b style="font-size: 16px">Delivery Instructions</b>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                    <table>
+
+                    </table>
+                    <div style="margin-top: 3%">
+                        <p>Company Registration No: CPR2014/144733. Registered Office P.O BOX 23557-00400, Nairobi East Tom Mboya, Nairobi Kenya</p>
                     </div>
                 </div>
             </div>
@@ -293,10 +331,10 @@ for ($i = $from; $i <= $to; $i++)
    </html>
 
     <script>
-        window.print();
-        setTimeout(() =>{
-            window.close();
-        },2000)
+        // window.print();
+        // setTimeout(() =>{
+        //     window.close();
+        // },2000)
     </script>
 
     <style>
@@ -304,9 +342,9 @@ for ($i = $from; $i <= $to; $i++)
         {
             height: 100px;
         }
-        .table td, .table th{
-            vertical-align: bottom !important;
-        }
+        /*.table td, .table th{*/
+        /*    vertical-align: bottom !important;*/
+        /*}*/
         @media print {
             .table-info{
                 background: #86cfda !important;

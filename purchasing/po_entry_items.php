@@ -40,7 +40,6 @@ if (isset($_GET['ModifyOrderNumber']) && is_numeric($_GET['ModifyOrderNumber']))
 
 	$_SESSION['page_title'] = _($help_context = "Modify Purchase Order #") . $_GET['ModifyOrderNumber'];
 	create_new_po(ST_PURCHORDER, $_GET['ModifyOrderNumber']);
-	copy_from_cart();
 } elseif (isset($_GET['NewOrder'])) {
 
 	$_SESSION['page_title'] = _($help_context = "Purchase Order Entry");
@@ -394,8 +393,8 @@ function can_commit()
 		set_focus('StkLocation');
 		return false;
 	} 
-	if (!db_has_currency_rates($_SESSION['PO']->curr_code, $_POST['OrderDate'], true))
-		return false;
+	//if (!db_has_currency_rates($_SESSION['PO']->curr_code, $_POST['OrderDate'], true))
+	//	return false;
 	if ($_SESSION['PO']->order_has_items() == false)
 	{
      	display_error (_("The order cannot be placed because there are no lines entered on this order."));
@@ -414,13 +413,12 @@ function can_commit()
 function handle_commit_order()
 {
 	$cart = &$_SESSION['PO'];
-
+    $usd_rate = $_POST['usd_rate'];
 	if (can_commit()) {
-
 		copy_to_cart();
 		new_doc_date($cart->orig_order_date);
 		if ($cart->order_no == 0) { // new po/grn/invoice
-			$trans_no = add_direct_supp_trans($cart);
+			$trans_no = add_direct_supp_trans($cart,$usd_rate);
 			if ($trans_no) {
 				unset($_SESSION['PO']);
 				if ($cart->trans_type == ST_PURCHORDER)
@@ -431,7 +429,7 @@ function handle_commit_order()
 					meta_forward($_SERVER['PHP_SELF'], "AddedPI=$trans_no");
 			}
 		} else { // order modification
-			$order_no = update_po($cart);
+			$order_no = update_po($cart,$usd_rate);
 			unset($_SESSION['PO']);
         	meta_forward($_SERVER['PHP_SELF'], "AddedID=$order_no&Updated=1");	
 		}
@@ -513,6 +511,5 @@ else
 	submit_center('CancelOrder', $cancel_txt, true, false, 'cancel');
 div_end();
 //---------------------------------------------------------------------------------------------------
-
 end_form();
 end_page();

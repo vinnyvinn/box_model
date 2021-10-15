@@ -149,6 +149,7 @@ function invoice_header(&$supp_trans)
 
 	$company_currency = get_company_currency();
 
+    error_log(var_dump($supp_trans));
 	if ($supp_trans->currency != $company_currency)
 	{
         label_row(_("Supplier's Currency:"), "<b>" . $supp_trans->currency . "</b>");

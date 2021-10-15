@@ -80,9 +80,9 @@ function edit_grn_summary(&$po)
 
     	if ($po->Comments != "")
     		label_row(_("Order Comments"), $po->Comments, "class='tableheader2'", "colspan=9");
-
-	    if (!is_company_currency($po->curr_code))
-			exchange_rate_display(get_company_currency(), $po->curr_code, get_post('DefaultReceivedDate'));
+    text_row(_("USD Exchange Rate: "), 'usd_rate', $po->usd_rate, 20, 60);
+//      	   if (!is_company_currency($po->curr_code))
+//			exchange_rate_display(get_company_currency(), $po->curr_code, get_post('DefaultReceivedDate'));
 	end_outer_table(1);
 }
 

@@ -148,7 +148,7 @@ function get_po_prepayments($supp_trans)
 //
 //	Add Purchase Order, GRN or Purchase Invoice with parent auto documents (if any)
 //
-function add_direct_supp_trans($cart)
+function add_direct_supp_trans($cart,$usd_rate='')
 {
 	global $Refs, $type_shortcuts;
 
@@ -163,7 +163,7 @@ function add_direct_supp_trans($cart)
 		$cart->reference = 'auto';
 		begin_transaction();	// all db changes as single transaction for direct document
 	}
-	$order_no = add_po($cart);
+	$order_no = add_po($cart,$usd_rate);
    	$cart->order_no = $order_no;
 
 	if ($cart->trans_type == ST_PURCHORDER)

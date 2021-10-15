@@ -406,7 +406,7 @@ function handle_negative_inventory($stock_id, $quantity, $standard_cost, $date_)
 function add_stock_move($type, $stock_id, $trans_no, $location,
     $date_, $reference, $quantity, $std_cost,$customer_id=0,$price=0)
 {
-   $price = get_item_price_by_stock_id($stock_id);
+    $price = get_item_price_by_stock_id($stock_id);
 	$date = date2sql($date_);
     $trans_type = isset($_SESSION['loc_type']) ? $_SESSION['loc_type'] : 'location';
 
@@ -563,8 +563,10 @@ function get_item_price_by_stock_id($stock_id)
         $row = db_fetch_row($result);
         return $row[0];
     }
+    return 0;
 
-    display_db_error("could not retreive the item price for $stock_id", $sql, true);
+
+  //  display_db_error("could not retreive the item price for $stock_id", $sql, true);
 }
 function get_mb_flag($stock_id)
 {
