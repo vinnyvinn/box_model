@@ -238,6 +238,7 @@ for ($i = $from; $i <= $to; $i++)
                                //  $tax_items[1]['tax_type_name']; --> 16 %
                                 $subtotal +=$sub_price;
                                 ?>
+                                    
                                 <tr>
                                     <td><span class="text-3"><?php echo $myrow2['description'];?></td>
                                     <td class="text-center"><?php echo $DisplayQty.' '.$myrow2['units'];?></td>
