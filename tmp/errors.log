@@ -255,3 +255,131 @@
 [15-Oct-2021 09:20:00 Europe/Berlin] edit_link
 [15-Oct-2021 09:20:00 Europe/Berlin] receive_link
 [15-Oct-2021 09:20:00 Europe/Berlin] prt_link
+[15-Oct-2021 09:54:14 Europe/Berlin] trans_view
+[15-Oct-2021 09:54:14 Europe/Berlin] edit_link
+[15-Oct-2021 09:54:14 Europe/Berlin] receive_link
+[15-Oct-2021 09:54:14 Europe/Berlin] prt_link
+[15-Oct-2021 09:54:14 Europe/Berlin] trans_view
+[15-Oct-2021 09:54:14 Europe/Berlin] edit_link
+[15-Oct-2021 09:54:14 Europe/Berlin] receive_link
+[15-Oct-2021 09:54:14 Europe/Berlin] prt_link
+[15-Oct-2021 09:54:14 Europe/Berlin] trans_view
+[15-Oct-2021 09:54:14 Europe/Berlin] edit_link
+[15-Oct-2021 09:54:14 Europe/Berlin] receive_link
+[15-Oct-2021 09:54:14 Europe/Berlin] prt_link
+[15-Oct-2021 09:54:14 Europe/Berlin] trans_view
+[15-Oct-2021 09:54:14 Europe/Berlin] edit_link
+[15-Oct-2021 09:54:14 Europe/Berlin] receive_link
+[15-Oct-2021 09:54:14 Europe/Berlin] prt_link
+[15-Oct-2021 09:54:14 Europe/Berlin] trans_view
+[15-Oct-2021 09:54:14 Europe/Berlin] edit_link
+[15-Oct-2021 09:54:14 Europe/Berlin] receive_link
+[15-Oct-2021 09:54:14 Europe/Berlin] prt_link
+[15-Oct-2021 09:54:14 Europe/Berlin] trans_view
+[15-Oct-2021 09:54:14 Europe/Berlin] edit_link
+[15-Oct-2021 09:54:14 Europe/Berlin] receive_link
+[15-Oct-2021 09:54:14 Europe/Berlin] prt_link
+[15-Oct-2021 09:54:14 Europe/Berlin] trans_view
+[15-Oct-2021 09:54:14 Europe/Berlin] edit_link
+[15-Oct-2021 09:54:14 Europe/Berlin] receive_link
+[15-Oct-2021 09:54:14 Europe/Berlin] prt_link
+[15-Oct-2021 09:55:21 Europe/Berlin] isset--> 1
+[15-Oct-2021 09:55:21 Europe/Berlin] box id--> 33
+[15-Oct-2021 09:55:21 Europe/Berlin] qty--> 1
+[15-Oct-2021 09:55:21 Europe/Berlin] Rounding error -800 encountered for trans_type:10,trans_no:115
+[15-Oct-2021 09:55:39 Europe/Berlin] 1:admin:rep107.php:22: include_once(../includes/session.inc): failed to open stream: No such file or directory
+[15-Oct-2021 09:55:39 Europe/Berlin] 1:admin:rep107.php:22: include_once(): Failed opening '../includes/session.inc' for inclusion (include_path='.:/usr/share/php')
+[15-Oct-2021 09:55:39 Europe/Berlin] 1:admin:rep107.php:23: include_once(../includes/date_functions.inc): failed to open stream: No such file or directory
+[15-Oct-2021 09:55:39 Europe/Berlin] 1:admin:rep107.php:23: include_once(): Failed opening '../includes/date_functions.inc' for inclusion (include_path='.:/usr/share/php')
+[15-Oct-2021 09:55:39 Europe/Berlin] 1:admin:rep107.php:24: include_once(../includes/data_checks.inc): failed to open stream: No such file or directory
+[15-Oct-2021 09:55:39 Europe/Berlin] 1:admin:rep107.php:24: include_once(): Failed opening '../includes/data_checks.inc' for inclusion (include_path='.:/usr/share/php')
+[15-Oct-2021 09:55:39 Europe/Berlin] 1:admin:rep107.php:25: include_once(../sales/includes/sales_db.inc): failed to open stream: No such file or directory
+[15-Oct-2021 09:55:39 Europe/Berlin] 1:admin:rep107.php:25: include_once(): Failed opening '../sales/includes/sales_db.inc' for inclusion (include_path='.:/usr/share/php')
+[15-Oct-2021 09:55:39 Europe/Berlin] 1:admin:rep107.php:67: include_once(../reporting/includes/pdf_report.inc): failed to open stream: No such file or directory
+[15-Oct-2021 09:55:39 Europe/Berlin] 1:admin:rep107.php:67: include_once(): Failed opening '../reporting/includes/pdf_report.inc' for inclusion (include_path='.:/usr/share/php')
+[15-Oct-2021 09:55:39 Europe/Berlin] 1:admin:current_user.inc:387: include_once(../inventory/includes/db/items_units_db.inc): failed to open stream: No such file or directory
+[15-Oct-2021 09:55:39 Europe/Berlin] 1:admin:current_user.inc:387: include_once(): Failed opening '../inventory/includes/db/items_units_db.inc' for inclusion (include_path='.:/usr/share/php')
+[15-Oct-2021 09:55:55 Europe/Berlin] 1:admin:rep107.php:22: include_once(../includes/session.inc): failed to open stream: No such file or directory
+[15-Oct-2021 09:55:55 Europe/Berlin] 1:admin:rep107.php:22: include_once(): Failed opening '../includes/session.inc' for inclusion (include_path='.:/usr/share/php')
+[15-Oct-2021 09:55:55 Europe/Berlin] 1:admin:rep107.php:23: include_once(../includes/date_functions.inc): failed to open stream: No such file or directory
+[15-Oct-2021 09:55:55 Europe/Berlin] 1:admin:rep107.php:23: include_once(): Failed opening '../includes/date_functions.inc' for inclusion (include_path='.:/usr/share/php')
+[15-Oct-2021 09:55:55 Europe/Berlin] 1:admin:rep107.php:24: include_once(../includes/data_checks.inc): failed to open stream: No such file or directory
+[15-Oct-2021 09:55:55 Europe/Berlin] 1:admin:rep107.php:24: include_once(): Failed opening '../includes/data_checks.inc' for inclusion (include_path='.:/usr/share/php')
+[15-Oct-2021 09:55:55 Europe/Berlin] 1:admin:rep107.php:25: include_once(../sales/includes/sales_db.inc): failed to open stream: No such file or directory
+[15-Oct-2021 09:55:55 Europe/Berlin] 1:admin:rep107.php:25: include_once(): Failed opening '../sales/includes/sales_db.inc' for inclusion (include_path='.:/usr/share/php')
+[15-Oct-2021 09:55:55 Europe/Berlin] 1:admin:rep107.php:67: include_once(../reporting/includes/pdf_report.inc): failed to open stream: No such file or directory
+[15-Oct-2021 09:55:55 Europe/Berlin] 1:admin:rep107.php:67: include_once(): Failed opening '../reporting/includes/pdf_report.inc' for inclusion (include_path='.:/usr/share/php')
+[15-Oct-2021 09:55:55 Europe/Berlin] 1:admin:current_user.inc:387: include_once(../inventory/includes/db/items_units_db.inc): failed to open stream: No such file or directory
+[15-Oct-2021 09:55:55 Europe/Berlin] 1:admin:current_user.inc:387: include_once(): Failed opening '../inventory/includes/db/items_units_db.inc' for inclusion (include_path='.:/usr/share/php')
+[19-Oct-2021 17:27:40 Europe/Berlin] trans_view
+[19-Oct-2021 17:27:40 Europe/Berlin] edit_link
+[19-Oct-2021 17:27:40 Europe/Berlin] receive_link
+[19-Oct-2021 17:27:40 Europe/Berlin] prt_link
+[19-Oct-2021 17:27:40 Europe/Berlin] trans_view
+[19-Oct-2021 17:27:40 Europe/Berlin] edit_link
+[19-Oct-2021 17:27:40 Europe/Berlin] receive_link
+[19-Oct-2021 17:27:40 Europe/Berlin] prt_link
+[19-Oct-2021 17:27:40 Europe/Berlin] trans_view
+[19-Oct-2021 17:27:40 Europe/Berlin] edit_link
+[19-Oct-2021 17:27:40 Europe/Berlin] receive_link
+[19-Oct-2021 17:27:40 Europe/Berlin] prt_link
+[19-Oct-2021 17:27:40 Europe/Berlin] trans_view
+[19-Oct-2021 17:27:40 Europe/Berlin] edit_link
+[19-Oct-2021 17:27:40 Europe/Berlin] receive_link
+[19-Oct-2021 17:27:40 Europe/Berlin] prt_link
+[19-Oct-2021 17:27:40 Europe/Berlin] trans_view
+[19-Oct-2021 17:27:40 Europe/Berlin] edit_link
+[19-Oct-2021 17:27:40 Europe/Berlin] receive_link
+[19-Oct-2021 17:27:40 Europe/Berlin] prt_link
+[19-Oct-2021 17:27:40 Europe/Berlin] trans_view
+[19-Oct-2021 17:27:40 Europe/Berlin] edit_link
+[19-Oct-2021 17:27:40 Europe/Berlin] receive_link
+[19-Oct-2021 17:27:40 Europe/Berlin] prt_link
+[19-Oct-2021 17:27:40 Europe/Berlin] trans_view
+[19-Oct-2021 17:27:40 Europe/Berlin] edit_link
+[19-Oct-2021 17:27:40 Europe/Berlin] receive_link
+[19-Oct-2021 17:27:40 Europe/Berlin] prt_link
+[19-Oct-2021 17:27:40 Europe/Berlin] trans_view
+[19-Oct-2021 17:27:40 Europe/Berlin] edit_link
+[19-Oct-2021 17:27:40 Europe/Berlin] receive_link
+[19-Oct-2021 17:27:40 Europe/Berlin] prt_link
+[19-Oct-2021 17:27:40 Europe/Berlin] trans_view
+[19-Oct-2021 17:27:40 Europe/Berlin] edit_link
+[19-Oct-2021 17:27:40 Europe/Berlin] receive_link
+[19-Oct-2021 17:27:40 Europe/Berlin] prt_link
+[19-Oct-2021 17:29:38 Europe/Berlin] trans_view
+[19-Oct-2021 17:29:38 Europe/Berlin] edit_link
+[19-Oct-2021 17:29:38 Europe/Berlin] receive_link
+[19-Oct-2021 17:29:38 Europe/Berlin] prt_link
+[19-Oct-2021 17:29:38 Europe/Berlin] trans_view
+[19-Oct-2021 17:29:38 Europe/Berlin] edit_link
+[19-Oct-2021 17:29:38 Europe/Berlin] receive_link
+[19-Oct-2021 17:29:38 Europe/Berlin] prt_link
+[19-Oct-2021 17:29:38 Europe/Berlin] trans_view
+[19-Oct-2021 17:29:38 Europe/Berlin] edit_link
+[19-Oct-2021 17:29:38 Europe/Berlin] receive_link
+[19-Oct-2021 17:29:38 Europe/Berlin] prt_link
+[19-Oct-2021 17:29:38 Europe/Berlin] trans_view
+[19-Oct-2021 17:29:38 Europe/Berlin] edit_link
+[19-Oct-2021 17:29:38 Europe/Berlin] receive_link
+[19-Oct-2021 17:29:38 Europe/Berlin] prt_link
+[19-Oct-2021 17:29:38 Europe/Berlin] trans_view
+[19-Oct-2021 17:29:38 Europe/Berlin] edit_link
+[19-Oct-2021 17:29:38 Europe/Berlin] receive_link
+[19-Oct-2021 17:29:38 Europe/Berlin] prt_link
+[19-Oct-2021 17:29:38 Europe/Berlin] trans_view
+[19-Oct-2021 17:29:38 Europe/Berlin] edit_link
+[19-Oct-2021 17:29:38 Europe/Berlin] receive_link
+[19-Oct-2021 17:29:38 Europe/Berlin] prt_link
+[19-Oct-2021 17:29:38 Europe/Berlin] trans_view
+[19-Oct-2021 17:29:38 Europe/Berlin] edit_link
+[19-Oct-2021 17:29:38 Europe/Berlin] receive_link
+[19-Oct-2021 17:29:38 Europe/Berlin] prt_link
+[19-Oct-2021 17:29:38 Europe/Berlin] trans_view
+[19-Oct-2021 17:29:38 Europe/Berlin] edit_link
+[19-Oct-2021 17:29:38 Europe/Berlin] receive_link
+[19-Oct-2021 17:29:38 Europe/Berlin] prt_link
+[19-Oct-2021 17:29:38 Europe/Berlin] trans_view
+[19-Oct-2021 17:29:38 Europe/Berlin] edit_link
+[19-Oct-2021 17:29:38 Europe/Berlin] receive_link
+[19-Oct-2021 17:29:38 Europe/Berlin] prt_link

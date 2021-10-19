@@ -148,10 +148,7 @@ for ($i = $from; $i <= $to; $i++)
 
                     <address>
                         <span style="text-transform: uppercase;font-size: 16px;"><?php
-                           // echo '<pre>';
-                        //  var_dump($formData);
                           echo $formData['supp_name'];
-//                            echo $company['coy_name'];
                             ?>
                         </span><br/>
                         <span style="text-transform:uppercase; font-size: 16px;">
@@ -212,7 +209,7 @@ for ($i = $from; $i <= $to; $i++)
                             $subtotal = 0;
                             while ($myrow2=db_fetch($result))
                             {
-                                $data = get_purchase_data($myrow['supplier_id'], $myrow2['item_code']);
+                                 $data = get_purchase_data($myrow['supplier_id'], $myrow2['item_code']);
                                 if ($data !== false)
                                 {
                                     if ($data['supplier_description'] != "")
@@ -234,11 +231,12 @@ for ($i = $from; $i <= $to; $i++)
                                 $DisplayQty = number_format2($myrow2["quantity_ordered"],get_qty_dec($myrow2['item_code']));
                                 $DisplayNet = number_format2($Net,$dec);
 
+                                $sub_price = $myrow2["unit_price"] * $myrow2["quantity_ordered"] * $myrow['usd_rate'];
                                 $DisplayTax = 0;
                                 $tax_items =  $tax_items = get_tax_for_items($items, $prices, 0,
                                     $myrow['tax_group_id'], $myrow['tax_included'],  null, TCA_LINES);
                                //  $tax_items[1]['tax_type_name']; --> 16 %
-                                $subtotal +=($DisplayNet * $myrow['usd_rate']);
+                                $subtotal +=$sub_price;
                                 ?>
                                 <tr>
                                     <td><span class="text-3"><?php echo $myrow2['description'];?></td>
@@ -246,7 +244,7 @@ for ($i = $from; $i <= $to; $i++)
                                     <td class="text-center"><?php echo $myrow['usd_rate'];?></td>
                                     <td class="text-center"><?php echo '16%';?></td>
                                     <td class="text-center"><?php echo $DisplayPrice?></td>
-                                    <td class="text-right"><?php echo number_format2($DisplayNet * $myrow['usd_rate'],$dec);?></td>
+                                    <td class="text-right"><?php echo number_format2($sub_price,$dec);?></td>
                                 </tr>
                             <?php  }?>
                             </tbody>
@@ -320,9 +318,9 @@ for ($i = $from; $i <= $to; $i++)
                     <table>
 
                     </table>
-                    <div style="margin-top: 3%">
-                        <p style="font-size: 13px">Company Registration No: CPR2014/144733. Registered Office P.O BOX 23557-00400, Nairobi East Tom Mboya, Nairobi Kenya</p>
-                    </div>
+<!--                    <div style="margin-top: 3%">-->
+<!--                        <p style="font-size: 13px">Company Registration No: CPR2014/144733. Registered Office P.O BOX 23557-00400, Nairobi East Tom Mboya, Nairobi Kenya</p>-->
+<!--                    </div>-->
                 </div>
             </div>
         </main>
