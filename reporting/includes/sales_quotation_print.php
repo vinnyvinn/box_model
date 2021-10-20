@@ -84,18 +84,15 @@ include_once($path_to_root . "/sales/includes/sales_db.inc");
     <!-- Main Content -->
     <main>
         <div class="row">
-            <div class="col-sm-6 text-sm-right order-sm-1"> <strong>Charge To:</strong>
-                <address>
-                    <?php echo $formData['supp_name'];?><br />
-                </address>
+            <div class="col-sm-6 text-sm-right order-sm-1"> <strong></strong>
+<!--                <address>-->
+<!--                    --><?php //echo $formData['supp_name'];?><!--<br />-->
+<!--                </address>-->
             </div>
-            <div class="col-sm-6 order-sm-0"> <strong>Delivered To:</strong>
+            <div class="col-sm-6 order-sm-0"> <strong>Charge To:</strong>
                 <address>
-               <?php
-               echo $_SESSION['View']->customer_name;?><br />
-			   <?php
-               echo nl2br($_SESSION['View']->delivery_address);?><br />
-			   
+                    <?php echo $formData['address'];?>
+                 <br />
                 </address>
             </div>
 

@@ -195,15 +195,15 @@ function add_stock_request_item($req_id, $stock_id, $location, $date_, $referenc
     $req_value = $standard_cost * -($quantity);
 
 
-    // if ($standard_cost > 0)
-    // {
+     if ($standard_cost > 0)
+     {
 
-    //     $stock_gl_codes = get_stock_gl_code($stock_id);
+         $stock_gl_codes = get_stock_gl_code($stock_id);
 
-    //     add_gl_trans_std_cost(ST_INVREQUEST, $req_id, $date_,
-    //         $stock_gl_codes['adjustment_account'], $stock_gl_codes['dimension_id'], $stock_gl_codes['dimension2_id'], $memo_, $req_value);
+         add_gl_trans_std_cost(ST_INVREQUEST, $req_id, $date_,
+             $stock_gl_codes['adjustment_account'], $stock_gl_codes['dimension_id'], $stock_gl_codes['dimension2_id'], $memo_, $req_value);
 
-    //     add_gl_trans_std_cost(ST_INVREQUEST, $req_id, $date_, $stock_gl_codes['inventory_account'], 0, 0, $memo_, $inv_value);
-    // }
+         add_gl_trans_std_cost(ST_INVREQUEST, $req_id, $date_, $stock_gl_codes['inventory_account'], 0, 0, $memo_, $inv_value);
+     }
 
 }

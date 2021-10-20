@@ -129,15 +129,15 @@ for ($i = $from; $i <= $to; $i++) {
     <!-- Main Content -->
     <main>
         <div class="row">
-            <div class="col-sm-6 text-sm-right order-sm-1"> <strong>Charge To:</strong>
-                <address>
-                    <?php echo @$formData['supp_name'];?><br />
-                </address>
+            <div class="col-sm-6 text-sm-right order-sm-1"> <strong></strong>
+<!--                <address>-->
+<!--                    --><?php //echo @$formData['supp_name'];?><!--<br />-->
+<!--                </address>-->
             </div>
-            <div class="col-sm-6 order-sm-0"> <strong>Delivered To:</strong>
+            <div class="col-sm-6 order-sm-0"> <strong>Charge To:</strong>
                 <address>
                <?php
-               echo $company['coy_name'];?><br />
+               echo $formData['address'];?><br />
                 </address>
             </div>
 
