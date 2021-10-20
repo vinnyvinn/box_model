@@ -197,7 +197,6 @@ function add_stock_request_item($req_id, $stock_id, $location, $date_, $referenc
 
      if ($standard_cost > 0)
      {
-
          $stock_gl_codes = get_stock_gl_code($stock_id);
 
          add_gl_trans_std_cost(ST_INVREQUEST, $req_id, $date_,
