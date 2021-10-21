@@ -93,7 +93,6 @@ function write_supp_payment($trans_no, $supplier_id, $bank_account,
 
 	return $payment_id;
 }
-
 //------------------------------------------------------------------------------------------------
 
 function void_supp_payment($type, $type_no)
