@@ -62,6 +62,8 @@ if (isset($_POST['_DatePaid_changed'])) {
 if (!isset($_POST['bank_account'])) { // first page call
 	$_SESSION['alloc'] = new allocation(ST_SUPPAYMENT, 0, get_post('supplier_id'));
 
+    //error_log(var_dump($_SESSION['alloc']));
+  //  exit();
 	if (isset($_GET['PInvoice'])) {
 		//  get date and supplier
 		$inv = get_supp_trans($_GET['PInvoice'], $_GET['trans_type']);

@@ -418,8 +418,8 @@ function display_debit_or_credit_cells($value, $bold=false)
 	$value = round2($value, user_price_dec());
 	if ($value >= 0)
 	{
-		amount_cell($value, $bold);
-		label_cell("");
+	  amount_cell($value, $bold);
+	  label_cell("");
 	}
 	elseif ($value < 0)
 	{

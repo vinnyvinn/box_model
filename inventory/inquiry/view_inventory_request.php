@@ -40,17 +40,9 @@ if(get_post('ShowMoves'))
 if(isset($_GET['Issued']) && isset($_GET['qty'])){
     update_stock_move_req_issue($_GET['Issued'],$_GET['qty']);
 
-    $stock_id_query = get_stock_id_from_stock_moves($_GET['Issued']);
-    $stock_id=$stock_id_query['stock_id'];
-    $stock_gl_codes = get_stock_gl_code($stock_id);
+    update_gl_trans_std_cost(ST_INVREQUEST,$_GET['Issued']);
 
-    add_gl_trans_std_cost(ST_INVREQUEST, $req_id, $date_,
-        $stock_gl_codes['adjustment_account'], $stock_gl_codes['dimension_id'], $stock_gl_codes['dimension2_id'], $memo_, $req_value);
-
-    add_gl_trans_std_cost(ST_INVREQUEST, $req_id, $date_, $stock_gl_codes['inventory_account'], 0, 0, $memo_, $inv_value);
-    
-
-   // meta_forward('/inventory/inquiry/view_inventory_request.php');
+   //meta_forward('/inventory/inquiry/view_inventory_request.php');
 }
 
 if (isset($_GET['stock_id']))

@@ -17,7 +17,7 @@ function update_item($stock_id, $description, $long_description, $category_id,
 	$depreciation_method = 'D', $depreciation_rate=100, $depreciation_factor=1,
 	$depreciation_start=null, $fa_class_id=null)
 {
-    error_log('stock id--> '.$stock_id);
+
 	$sql = "UPDATE ".TB_PREF."stock_master SET long_description=".db_escape($long_description).",
 		description=".db_escape($description).",		
 		category_id=".db_escape($category_id).",

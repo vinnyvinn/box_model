@@ -21,6 +21,7 @@ function add_gl_trans($type, $trans_id, $date_, $account, $dimension, $dimension
 {
 	global $SysPrefs;
 
+
 	$date = date2sql($date_);
 	if ($currency != null)
 	{
@@ -70,6 +71,28 @@ function add_gl_trans($type, $trans_id, $date_, $account, $dimension, $dimension
 	return $amount_in_home_currency;
 }
 
+function get_gl($type,$trans_id){
+    $sql1 = "SELECT trans_no FROM ".TB_PREF."stock_moves WHERE trans_id=".$trans_id;
+    $res1 = db_query($sql1,"Item could not be found.");
+     $type_no = db_fetch_row($res1)[0];
+
+    $sql = "SELECT counter,amount FROM ".TB_PREF."gl_trans WHERE type_no=".$type_no." AND type=".$type." ORDER BY counter DESC";
+    $result = db_query($sql,"Could not get the transaction.");
+    $myrow = db_fetch($result);
+    return $myrow;
+}
+
+function get_gl2($type,$trans_id){
+    $sql1 = "SELECT trans_no FROM ".TB_PREF."stock_moves WHERE trans_id=".$trans_id;
+    $res1 = db_query($sql1,"Item could not be found.");
+    $type_no = db_fetch_row($res1)[0];
+
+    $sql = "SELECT counter,amount FROM ".TB_PREF."gl_trans WHERE type_no=".$type_no." AND type=".$type." ORDER BY counter ASC";
+    $result = db_query($sql,"Could not get the transaction.");
+    $myrow = db_fetch($result);
+    return $myrow;
+}
+
 //--------------------------------------------------------------------------------
 
 // GL Trans for standard costing, always home currency regardless of person
@@ -87,6 +110,25 @@ function add_gl_trans_std_cost($type, $trans_id, $date_, $account, $dimension, $
 		return 0;
 }
 
+function update_gl_trans_std_cost($type, $trans_id)
+{
+    $counter = get_gl($type,$trans_id)['counter'];
+    $mount = -abs(get_gl($type,$trans_id)['amount']);
+    $sql = "UPDATE ".TB_PREF."gl_trans SET amount=".db_escape($mount)
+        ." WHERE counter=".db_escape($counter);
+
+    db_query($sql, "Fail to update transaction");
+    update_gl($type,$trans_id);
+    return true;
+}
+
+function update_gl($type,$trans_id){
+    $counter = get_gl2($type,$trans_id)['counter'];
+    $mount = abs(get_gl2($type,$trans_id)['amount']);
+    $sql2 = "UPDATE ".TB_PREF."gl_trans SET amount=".db_escape($mount)
+        ." WHERE counter=".db_escape($counter);
+    db_query($sql2, "Fail to update transaction");
+}
 // Function for even out rounding problems
 function add_gl_balance($type, $trans_id, $date_, $amount, $person_type_id=null, $person_id=null)
 {

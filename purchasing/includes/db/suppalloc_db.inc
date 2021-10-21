@@ -205,12 +205,12 @@ function get_allocatable_to_supp_transactions($supplier_id=null, $trans_no=null,
 		$sql .= " AND alloc.trans_no_from=".db_escape($trans_no)."
 				  AND alloc.trans_type_from=".db_escape($type);
 	}
-	else
-	{
-		$sql .= " AND round(ov_amount+ov_gst+ov_discount-alloc,6) > 0
-			AND trans.type NOT IN (".implode(',',array(ST_SUPPAYMENT, ST_BANKPAYMENT)).")";
-		$sql .= " GROUP BY type, trans_no";
-	}
+//	else
+//	{
+//		$sql .= " AND round(ov_amount+ov_gst+ov_discount-alloc,6) > 0
+//			AND trans.type NOT IN (".implode(',',array(ST_SUPPAYMENT, ST_BANKPAYMENT)).")";
+//		$sql .= " GROUP BY type, trans_no";
+//	}
 
 	$orders = get_allocatable_purch_orders($supplier_id, $trans_no, $type);
 	$sql = "($sql ORDER BY trans_no) \nUNION \n($orders)";
