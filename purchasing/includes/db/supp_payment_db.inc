@@ -90,6 +90,7 @@ function write_supp_payment($trans_no, $supplier_id, $bank_account,
 	hook_db_postwrite($args, ST_SUPPAYMENT);
 
 	commit_transaction();
+
 	return $payment_id;
 }
 //------------------------------------------------------------------------------------------------
