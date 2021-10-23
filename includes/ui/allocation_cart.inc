@@ -405,8 +405,9 @@ function check_allocations()
 				return false;
 			}
 		} elseif ($_SESSION['alloc']->person_type == PT_SUPPLIER) {
+            error_log($_SESSION['alloc']->allocs[$counter]->type);
 			if ($_SESSION['alloc']->allocs[$counter]->type == ST_PURCHORDER)
-                $trans = get_po($_SESSION['alloc']->allocs[$counter]->type_no);
+                $trans = get_po2($_SESSION['alloc']->allocs[$counter]->type_no);
             else
                 $trans = get_supp_trans($_SESSION['alloc']->allocs[$counter]->type_no, $_SESSION['alloc']->allocs[$counter]->type);			
 			if ($trans['supplier_id'] != $_SESSION['alloc']->person_id) {

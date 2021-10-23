@@ -122,6 +122,7 @@ function check_inputs()
 {
 	global $Refs;
 
+
 	if (!get_post('supplier_id')) 
 	{
 		display_error(_("There is no supplier selected."));
@@ -175,14 +176,15 @@ function check_inputs()
 		set_focus('amount');
 		return false;
 	}
+    //error_log(input_num('bank_amount'));
 
-	if (isset($_POST['bank_amount']) && input_num('bank_amount')<=0)
+	if (isset($_POST['bank_amount']) && is_numeric($_POST['bank_amount']) && input_num('bank_amount')<=0)
 	{
 		display_error(_("The entered bank amount is zero or negative."));
 		set_focus('bank_amount');
 		return false;
 	}
-
+   // exit();
 
    	if (!is_date($_POST['DatePaid']))
    	{
@@ -227,6 +229,7 @@ function check_inputs()
 
 function handle_add_payment()
 {
+
 	$payment_id = write_supp_payment(0, $_POST['supplier_id'], $_POST['bank_account'],
 		$_POST['DatePaid'], $_POST['ref'], input_num('amount'),	input_num('discount'), $_POST['memo_'], 
 		input_num('charge'), input_num('bank_amount', input_num('amount')), $_POST['dimension_id'], $_POST['dimension2_id']);
