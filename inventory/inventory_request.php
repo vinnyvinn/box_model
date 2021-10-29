@@ -53,7 +53,7 @@ if (isset($_GET['AddedID']))
     display_notification_centered(_("Items request has been processed"));
     display_note(get_trans_view_str($trans_type, $trans_no, _("&View this request")));
 
-   display_note(get_gl_view_str($trans_type, $trans_no, _("View the GL &Postings for this request")), 1, 0);
+  // display_note(get_gl_view_str($trans_type, $trans_no, _("View the GL &Postings for this request")), 1, 0);
 
 	  hyperlink_params($_SERVER['PHP_SELF'], _("Enter &Another request"), "NewRequest=1");
 

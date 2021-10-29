@@ -62,8 +62,6 @@ if (isset($_POST['_DatePaid_changed'])) {
 if (!isset($_POST['bank_account'])) { // first page call
 	$_SESSION['alloc'] = new allocation(ST_SUPPAYMENT, 0, get_post('supplier_id'));
 
-    //error_log(var_dump($_SESSION['alloc']));
-  //  exit();
 	if (isset($_GET['PInvoice'])) {
 		//  get date and supplier
 		$inv = get_supp_trans($_GET['PInvoice'], $_GET['trans_type']);
@@ -176,15 +174,12 @@ function check_inputs()
 		set_focus('amount');
 		return false;
 	}
-    //error_log(input_num('bank_amount'));
-
 	if (isset($_POST['bank_amount']) && is_numeric($_POST['bank_amount']) && input_num('bank_amount')<=0)
 	{
 		display_error(_("The entered bank amount is zero or negative."));
 		set_focus('bank_amount');
 		return false;
 	}
-   // exit();
 
    	if (!is_date($_POST['DatePaid']))
    	{
