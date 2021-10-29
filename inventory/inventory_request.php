@@ -48,8 +48,6 @@ if (isset($_GET['AddedID']))
 
   $result = get_stock_request_items($trans_no);
   $row = db_fetch($result);
-
-
     display_notification_centered(_("Items request has been processed"));
     display_note(get_trans_view_str($trans_type, $trans_no, _("&View this request")));
 
