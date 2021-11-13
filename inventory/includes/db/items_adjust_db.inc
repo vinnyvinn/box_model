@@ -188,21 +188,39 @@ function add_stock_request_item($req_id, $stock_id, $location, $date_, $referenc
 
     update_average_material_cost(null, $stock_id, $standard_cost, $quantity, $date_);
 
+    if (is_fixed_asset($mb_flag)) {
+        $sql = "UPDATE ".TB_PREF."stock_master SET inactive=1
+			WHERE stock_id=".db_escape($stock_id);
+        db_query($sql,"The inactive flag for the fixed asset could not be updated");
+    }
     add_stock_move_req(ST_INVREQUEST, $stock_id, $req_id, $location,
         $date_, $reference, -1*$quantity, $standard_cost);
 
     $inv_value = $standard_cost * $quantity;
     $req_value = $standard_cost * -($quantity);
 
+    if (is_fixed_asset($mb_flag)) {
+        // get the initial value of the fixed assset.
+        $row = get_fixed_asset_move($stock_id, ST_INVREQUEST);
+        $inv_value = $row['price'] * $quantity;
+        $req_value = (-($row['price']) + $standard_cost) * $quantity;
+    }
 
-     if ($standard_cost > 0)
-     {
-         $stock_gl_codes = get_stock_gl_code($stock_id);
+    if ($standard_cost > 0 || is_fixed_asset($mb_flag))
+    {
 
-         add_gl_trans_std_cost(ST_INVREQUEST, $req_id, $date_,
-             $stock_gl_codes['adjustment_account'], $stock_gl_codes['dimension_id'], $stock_gl_codes['dimension2_id'], $memo_, $req_value);
+        $stock_gl_codes = get_stock_gl_code($stock_id);
 
-         add_gl_trans_std_cost(ST_INVREQUEST, $req_id, $date_, $stock_gl_codes['inventory_account'], 0, 0, $memo_, $inv_value);
-     }
+        add_gl_trans_std_cost(ST_INVREQUEST, $req_id, $date_,
+            $stock_gl_codes['adjustment_account'], $stock_gl_codes['dimension_id'], $stock_gl_codes['dimension2_id'], $memo_, $req_value  );
+
+        add_gl_trans_std_cost(ST_INVREQUEST, $req_id, $date_, $stock_gl_codes['inventory_account'], 0, 0, $memo_, $inv_value);
+    }
+
+    if (is_fixed_asset($mb_flag)) {
+        // Additional gl entry for fixed asset.
+        $grn_act = get_company_pref('default_loss_on_asset_disposal_act');
+        add_gl_trans_std_cost(ST_INVREQUEST, $req_id, $date_, $grn_act, 0, 0, $memo_, ($standard_cost * -($quantity)));
+    }
 
 }
